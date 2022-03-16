@@ -4,6 +4,8 @@
 
 ### Planned:
 
+- implement CD/CI deployment
+  - write how-to
 - implement typescript
 - implement stitches for css-in-js styling (offer it as branch alternative with styling)
 - implement FireCMS as simpler solution for database entry
@@ -18,7 +20,9 @@
 
 ## Magic sauce
 
-The issue with all other guides for hosting Next.js app as a Cloud Function was that temporary next data would error out
+The issue with all other guides for hosting Next.js app as a Cloud Function was that temporary next data would error out because cloud function workspace file system is read-only. The solution is to populate `/tmp` with data from prebuilt `next` folder and direct nextServer to use that as it's temp folder.
+
+The problem with this approach is that `/tmp` is in-memory storage so it might be needed to raise the main cloud function's RAM limit.
 
 ## Why is this awesome?
 
