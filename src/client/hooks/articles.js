@@ -18,7 +18,7 @@ NOTE: must be wrapped on higher level than where useArticles is used.
     ...
   </ArticlesContextProvider>
 
-Then to use (“consume”) inside component or hook:  
+Then to use (“consume”) inside component or hook:
 
   import { useArticles } from 'hooks/articles'
 
@@ -27,35 +27,32 @@ Then to use (“consume”) inside component or hook:
 
  */
 
-import React, { createContext, useContext, useState, useEffect } from 'react'
-
-import { firebase, firebaseDB, docWithId, getCollectionItems } from 'lib/data/firebase'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { docWithId, firebase, firebaseDB, getCollectionItems } from 'lib/data/firebase'
 import toSlug from 'lib/toSlug'
 
 // Tip: if you don’t need SSR, you can move these inside the ArticlesContextProvider and create “chains” of child Firebase collections that depend on their parents
 // Collection/Item as Firebase references
 export const articlesCollectionRef = () => firebaseDB.collection('articles')
-export const articleRef = (articleId) => articlesCollectionRef().doc(articleId)
+export const articleRef = articleId => articlesCollectionRef().doc(articleId)
 
 // Collection/Item as objects
 export const articlesCollectionObjects = () => getCollectionItems(articlesCollectionRef()) // Add .orderBy('dateCreated') to sort by date but only rows where dateCreated exists
-export const articleObject = async (articleId) => {
-  const articleSnapshot = await articleRef(articleId).get()
-  if (!articleSnapshot.exists) {
-    const notFoundError = new Error(`Not found: ${articleId}`)
-    notFoundError.code = 'ENOENT'
-    throw notFoundError
-  }
-  return docWithId(articleSnapshot)
+export const articleObject = async articleId => {
+    const articleSnapshot = await articleRef(articleId).get()
+    if (!articleSnapshot.exists) {
+        const notFoundError = new Error(`Not found: ${articleId}`)
+        notFoundError.code = 'ENOENT'
+        throw notFoundError
+    }
+    return docWithId(articleSnapshot)
 }
 
-export const getArticleSlug = (article) => `${toSlug(article.title)}-${article.id}`
+export const getArticleSlug = article => `${toSlug(article.title)}-${article.id}`
 
-export const articlePath = (article) => {
-  return {
+export const articlePath = article => ({
     href: `/articles/${getArticleSlug(article)}`
-  }
-}
+})
 
 // Example: extending the database with Comments
 // export const commentsCollection = (articleId) => articleRef(articleId).collection('comments')
@@ -65,66 +62,60 @@ export const articlePath = (article) => {
 
 export const ArticlesContext = createContext()
 
-export const ArticlesContextProvider = (props) => {
-  // Use State to keep the values. Initial values are obtained from ArticlesContextProvider’s props.
-  const [articles, setArticles] = useState(props.articles)
+export const ArticlesContextProvider = props => {
+    // Use State to keep the values. Initial values are obtained from ArticlesContextProvider’s props.
+    const [articles, setArticles] = useState(props.articles)
 
-  // Real-time updates from Firebase
-  useEffect(
-    () => articlesCollectionRef().onSnapshot(snapshot => articlesCollectionObjects().then(setArticles)),
-    []
-  )
+    // Real-time updates from Firebase
+    useEffect(() => articlesCollectionRef().onSnapshot(snapshot => articlesCollectionObjects().then(setArticles)), [])
 
-  // addArticle(variables)
-  const addArticle = async (variables) => {
-    // if (props.onError) props.onError('An error happened!')
-    const valuesWithTimestamp = { ...variables, dateCreated: firebase.firestore.FieldValue.serverTimestamp() }
+    // addArticle(variables)
+    const addArticle = async variables => {
+        // if (props.onError) props.onError('An error happened!')
+        const valuesWithTimestamp = { ...variables, dateCreated: firebase.firestore.FieldValue.serverTimestamp() }
 
-    // Create new article with a generated key
-    const newArticleRef = await articlesCollectionRef().add(valuesWithTimestamp)
+        // Create new article with a generated key
+        const newArticleRef = await articlesCollectionRef().add(valuesWithTimestamp)
 
-    // // Create new article with a specified key
-    // const newArticleRef = articleRef(articleId)
-    // await newArticleRef.set(valuesWithTimestamp)
+        // // Create new article with a specified key
+        // const newArticleRef = articleRef(articleId)
+        // await newArticleRef.set(valuesWithTimestamp)
 
-    // Update client-side state
-    const newArticleSnapshot = await newArticleRef.get()
-    setArticles([
-      ...articles,
-      docWithId(newArticleSnapshot)
-    ])
-    return docWithId(newArticleSnapshot)
-  }
+        // Update client-side state
+        const newArticleSnapshot = await newArticleRef.get()
+        setArticles([...articles, docWithId(newArticleSnapshot)])
+        return docWithId(newArticleSnapshot)
+    }
 
-  // updateArticle(variables)
-  const updateArticle = async (variables) => {
-    const { id, ...values } = variables
-    const valuesWithTimestamp = { ...values, dateUpdated: firebase.firestore.FieldValue.serverTimestamp() }
-    await articleRef(id).update(valuesWithTimestamp)
-    // Update client-side state
-    const articleSnapshot = await articleRef(id).get()
-    setArticles(articles.map(article => article.id === id ? docWithId(articleSnapshot) : article))
-    return docWithId(articleSnapshot)
-  }
+    // updateArticle(variables)
+    const updateArticle = async variables => {
+        const { id, ...values } = variables
+        const valuesWithTimestamp = { ...values, dateUpdated: firebase.firestore.FieldValue.serverTimestamp() }
+        await articleRef(id).update(valuesWithTimestamp)
+        // Update client-side state
+        const articleSnapshot = await articleRef(id).get()
+        setArticles(articles.map(article => (article.id === id ? docWithId(articleSnapshot) : article)))
+        return docWithId(articleSnapshot)
+    }
 
-  // deleteArticle(variables)
-  const deleteArticle = async (variables) => {
-    const { id } = variables
-    await articleRef(id).delete()
-    // Update client-side state
-    setArticles(articles.filter(article => article.id !== id))
-    return variables
-  }
+    // deleteArticle(variables)
+    const deleteArticle = async variables => {
+        const { id } = variables
+        await articleRef(id).delete()
+        // Update client-side state
+        setArticles(articles.filter(article => article.id !== id))
+        return variables
+    }
 
-  // Make the context object (i.e. the “API” for Articles)
-  const articlesContext = {
-    articles,
-    addArticle,
-    updateArticle,
-    deleteArticle
-  }
-  // Pass the value in Provider and return
-  return <ArticlesContext.Provider value={articlesContext}>{props.children}</ArticlesContext.Provider>
+    // Make the context object (i.e. the “API” for Articles)
+    const articlesContext = {
+        articles,
+        addArticle,
+        updateArticle,
+        deleteArticle
+    }
+    // Pass the value in Provider and return
+    return <ArticlesContext.Provider value={articlesContext}>{props.children}</ArticlesContext.Provider>
 }
 
 export const { Consumer: ArticlesContextConsumer } = ArticlesContext
