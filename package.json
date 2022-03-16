@@ -1,0 +1,53 @@
+{
+  "name": "savez-ssd-bbz",
+  "description": "Next.js serverless PWA with Firebase and React Hooks, Firebase hosting",
+  "version": "1.15.0",
+  "author": "Ivan Doncevic <idoncev@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "dev:client": "next src/client",
+    "dev:server": "babel src/server --out-dir dist/server --source-maps --watch",
+    "dev": "yarn dev:client & yarn dev:server",
+    "build:client": "next build src/client",
+    "build:server": "babel src/server --out-dir dist/server --source-maps",
+    "build": "yarn build:client && yarn build:server && yarn copy-deps && yarn install-deps",
+    "not-preserve": "yarn build",
+    "serve": "cross-env NODE_ENV=production firebase serve --only functions,hosting",
+    "not-predeploy": "rimraf dist/ && yarn build",
+    "deploy": "cross-env NODE_ENV=production firebase deploy --only functions,hosting",
+    "test": "echo 'Running Standard.js and Jasmine unit tests...\n' && yarn lint && yarn unit",
+    "unit": "jasmine",
+    "lint": "standard",
+    "fix": "standard --fix",
+    "v+": "yarn version --patch",
+    "v++": "yarn version --minor",
+    "copy-deps": "cpx \"*{package.json,yarn.lock,next.config.js}\" \"dist/server\"",
+    "install-deps": "cd \"dist/server\" && yarn",
+    "build-public": "cpx \"src/public/**/*.*\" \"dist/public\" && cpx \"src/client/public/**/*.*\" \"dist/public\""
+  },
+  "dependencies": {
+    "aether-css-framework": "^1.6.17",
+    "firebase": "^9.6.8",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.1",
+    "next": "^11.0.0",
+    "next-offline": "^5.0.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-toastify": "^6.0.8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "standard": "^14.3.4",
+    "webpack": "^5.25.0",
+    "cpx": "^1.5.0"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": "16"
+  }
+}

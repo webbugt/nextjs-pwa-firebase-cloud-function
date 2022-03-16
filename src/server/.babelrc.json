@@ -1,0 +1,19 @@
+{
+  // "plugins": [
+  //   "babel-plugin-rewrite-module-path", 
+  //   {
+  //     "rewriteMapper": {
+  //         "^../../next.config": "./next.config"
+  //     }
+  // }],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "16.14.0"
+        }
+      }
+    ]
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "hosting": {
+    "public": "dist/public",
+    "rewrites": [
+      {
+        "source": "**/**",
+        "function": "nextjs"
+      }
+    ],
+    "predeploy": "rimraf dist/public && yarn build-public"
+  },
+  "functions": {
+    "source": "dist/server",
+    "predeploy":
+      "rimraf dist/ && yarn build:server && yarn build:client && yarn copy-deps",
+    "ignore": [
+      ".firebase/**",
+      ".firebaserc",
+      "firebase.json",
+      "**/node_modules/**",
+      "**/public/**"
+    ]
+  }
+}
