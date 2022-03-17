@@ -4,17 +4,16 @@
 
 ### Planned:
 
-- implement CD/CI deployment
-  - write how-to
-- implement typescript
-- implement stitches for css-in-js styling (offer it as branch alternative with styling)
-- implement FireCMS as simpler solution for database entry
-- implement more complex article entity
-- nextjs app temp files:
-  - population from google bucket on instance creation
-  - syncing with google bucket on instance closure
-- implement keepalive function to avoid dry runs
-- implement support for additional cloud function
+-   implement CD/CI deployment
+    -   write how-to
+-   implement stitches for css-in-js styling (offer it as branch alternative with styling)
+-   implement FireCMS as simpler solution for database entry
+-   implement more complex article entity
+-   nextjs app temp files:
+    -   population from google bucket on instance creation
+    -   syncing with google bucket on instance closure
+-   implement keepalive function to avoid dry runs
+-   implement support for additional cloud functions
 
 \_Note: this is my first boilerplate for React web apps on Firebase. Initially based on https://github.com/tomsoderlund/nextjs-pwa-firebase-boilerplate.git
 
@@ -28,33 +27,33 @@ The problem with this approach is that `/tmp` is in-memory storage so it might b
 
 This is a great template for a any project where you want **React (with Hooks)** (with **static site generation (SSG)** or **server-side rendering (SSR)**, powered by [Next.js](https://github.com/zeit/next.js)) as frontend and **Firebase** as backend. _Lightning fast, all JavaScript._
 
-- Great starting point for a [PWA (Progressive Web App)](https://en.wikipedia.org/wiki/Progressive_web_applications), which you can add to your Home Screen and use as a full-screen app.
-- PWA features such as `manifest.json` and offline support (`next-offline`).
-- Can be deployed as [serverless functions on Vercel/Zeit Now](#deploying).
-- Uses the new Firebase [Firestore](https://firebase.google.com/docs/firestore) database, but easy to replace/remove database.
-- Login/Signup with Firebase Authentication.
-- Can use SSG `getStaticProps` or SSR `getServerSideProps`.
-- React Hooks for business logic.
-- Free-form database model. No GraphQL or REST API, just add React Hooks and modify `getStaticProps`/`getServerSideProps` when changing/adding database tables.
-- Easy to style the visual theme using CSS (e.g. using [Design Profile Generator](https://tomsoderlund.github.io/design-profile-generator/)).
-- SEO support with `sitemap.xml` and `robots.txt`.
-- Google Analytics and `google-site-verification` support (see `config/config.js`).
-- Flexible configuration with `config/config.js` and `.env.local` file.
-- Code linting and formatting with StandardJS (`yarn lint`/`yarn fix`).
-- Unit testing with Jasmine (`yarn unit`, not yet included).
-- Deploy whole app on Firebase, static on Firstore, db on Firebase, app on Cloud Functions
-- Great page speed, see [Lighthouse](https://developers.google.com/web/tools/lighthouse) score:
+-   Great starting point for a [PWA (Progressive Web App)](https://en.wikipedia.org/wiki/Progressive_web_applications), which you can add to your Home Screen and use as a full-screen app.
+-   PWA features such as `manifest.json` and offline support (`next-offline`).
+-   Can be deployed as [serverless functions on Vercel/Zeit Now](#deploying).
+-   Uses the new Firebase [Firestore](https://firebase.google.com/docs/firestore) database, but easy to replace/remove database.
+-   Login/Signup with Firebase Authentication.
+-   Can use SSG `getStaticProps` or SSR `getServerSideProps`.
+-   React Hooks for business logic.
+-   Free-form database model. No GraphQL or REST API, just add React Hooks and modify `getStaticProps`/`getServerSideProps` when changing/adding database tables.
+-   Easy to style the visual theme using CSS (e.g. using [Design Profile Generator](https://tomsoderlund.github.io/design-profile-generator/)).
+-   SEO support with `sitemap.xml` and `robots.txt`.
+-   Google Analytics and `google-site-verification` support (see `config/config.js`).
+-   Flexible configuration with `config/config.js` and `.env.local` file.
+-   Code linting and formatting with StandardJS (`yarn lint`/`yarn fix`).
+-   Unit testing with Jasmine (`yarn unit`, not yet included).
+-   Deploy whole app on Firebase, static on Firstore, db on Firebase, app on Cloud Functions
+-   Great page speed, see [Lighthouse](https://developers.google.com/web/tools/lighthouse) score:
 
 ## How to use
 
 TODO: write how to use
 
-- create repo from template
-- create firebase services and APIs
-  - raise cloud function ram limit to 521mb (maybe unneccesary)
-- fill env files/ci configs
-- test run
-- how to develop
+-   create repo from template
+-   create firebase services and APIs
+    -   raise cloud function ram limit to 521mb (maybe unneccesary)
+-   fill env files/ci configs
+-   test run
+-   how to develop
 
 ## Modifying the app to your needs
 

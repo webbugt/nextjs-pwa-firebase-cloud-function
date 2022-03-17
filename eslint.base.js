@@ -29,7 +29,7 @@ module.exports = {
                 assert: true,
                 describe: true
             },
-            extends: ['airbnb', 'prettier', 'plugin:react/recommended'],
+            extends: ['airbnb', 'prettier', 'plugin:react/recommended', 'plugin:@next/next/recommended' ],
             plugins: [
                 'module-resolver',
                 'react',

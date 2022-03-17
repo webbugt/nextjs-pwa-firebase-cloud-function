@@ -1,0 +1,13 @@
+diff --git a/node_modules/next/dist/build/webpack-config.js b/node_modules/next/dist/build/webpack-config.js
+index d6a492b..57ecc33 100644
+--- a/node_modules/next/dist/build/webpack-config.js
++++ b/node_modules/next/dist/build/webpack-config.js
+@@ -324,7 +324,7 @@ async function getBaseWebpackConfig(dir, { buildId , config , dev =false , isSer
+         const configFilePath = _path.default.join(dir, filename);
+         return await memo || (await (0, _fileExists).fileExists(configFilePath) ? configFilePath : undefined);
+     }, Promise.resolve(undefined));
+-    const distDir = _path.default.join(dir, config.distDir);
++    const distDir = _path.default.resolve(dir, config.distDir);
+     let useSWCLoader = !babelConfigFile;
+     if (!loggedSwcDisabled && !useSWCLoader && babelConfigFile) {
+         Log.info(`Disabled SWC as replacement for Babel because of custom Babel configuration "${_path.default.relative(dir, babelConfigFile)}" https://nextjs.org/docs/messages/swc-disabled`);

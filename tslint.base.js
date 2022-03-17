@@ -14,7 +14,14 @@ module.exports = {
                 project: './tsconfig.*?.json',
                 sourceType: 'module'
             },
-            plugins: ['prefer-arrow-functions', 'prettier', 'import', 'simple-import-sort', 'security-node'],
+            plugins: [
+                'prefer-arrow-functions',
+                'prettier',
+                'import',
+                'simple-import-sort',
+                'security-node',
+                '@typescript-eslint'
+                ],
             rules: {
                 '@typescript-eslint/explicit-module-boundary-types': 'off',
                 '@typescript-eslint/explicit-function-return-type': 'off',
