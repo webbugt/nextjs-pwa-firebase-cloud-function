@@ -23,6 +23,10 @@ The issue with all other guides for hosting Next.js app as a Cloud Function was 
 
 The problem with this approach is that `/tmp` is in-memory storage so it might be needed to raise the main cloud function's RAM limit.
 
+### Caveat: after update to Next12
+
+Build/dev/export processes no longer support directory outside app dir `.../.../`, as such the above approach won't work without applying the included patch
+
 ## Why is this awesome?
 
 This is a great template for a any project where you want **React (with Hooks)** (with **static site generation (SSG)** or **server-side rendering (SSR)**, powered by [Next.js](https://github.com/zeit/next.js)) as frontend and **Firebase** as backend. _Lightning fast, all JavaScript._

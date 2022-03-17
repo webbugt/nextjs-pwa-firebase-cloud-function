@@ -3,6 +3,7 @@ import * as functions from 'firebase-functions'
 import fs from 'fs'
 import next from 'next'
 
+// eslint-disable-next-line import/extensions
 import nextConfig from './next.config'
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -12,7 +13,7 @@ const dev = process.env.NODE_ENV !== 'production'
  * @param {string} src  The path to the thing to copy.
  * @param {string} dest The path to the new copy.
  */
-var copyRecursiveSync = function (src, dest) {
+const copyRecursiveSync = (src, dest) => {
     try {
         const exists = fs.existsSync(src)
         const stats = exists && fs.lstatSync(src)
@@ -33,6 +34,7 @@ var copyRecursiveSync = function (src, dest) {
 admin.initializeApp()
 if (!dev) {
     copyRecursiveSync('/workspace/next', '/tmp/next')
+    fs.symlinkSync('/workspace/node_modules', '/tmp/node_modules')
     console.log(fs.readdirSync('/tmp'))
     // console.log(fs.readdirSync("/workspace/next"))
 }

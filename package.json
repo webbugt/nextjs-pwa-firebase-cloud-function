@@ -8,7 +8,7 @@
     "dev:client": "next src/client",
     "dev:server": "babel src/server --out-dir dist/server --source-maps --watch",
     "dev": "yarn dev:client & yarn dev:server",
-    "build:client": "next build src/client && cpx \"src/client/.next/**/*.*\" \"dist/server/next\"",
+    "build:client": "next build src/client",
     "build:server": "babel src/server --out-dir dist/server --source-maps",
     "build": "yarn build:client && yarn build:server && yarn copy-deps && yarn install-deps",
     "not-preserve": "yarn build",
