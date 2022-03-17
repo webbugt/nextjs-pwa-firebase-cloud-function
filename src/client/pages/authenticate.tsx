@@ -46,11 +46,8 @@ const EmailAuthenticatePage = ({ query }) => {
         loginUserAndRedirect()
     }, [query])
 
-    return (
-        <>
-            <h1>Logging in to {config.appName}...</h1>
-        </>
-    )
+    return <h1>Logging in to {config.appName}...</h1>
+        
 }
 
 export default EmailAuthenticatePage

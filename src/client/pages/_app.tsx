@@ -4,7 +4,7 @@ import Notifications from '@components/page/Notifications'
 // import { config } from 'config/config'
 import PageHead from '@components/page/PageHead'
 import Link from 'next/link'
-// import Router from 'next/router'
+import Router from 'next/router'
 import React from 'react'
 import type { AppProps } from 'next/app'
 
@@ -12,7 +12,7 @@ import type { AppProps } from 'next/app'
 import 'aether-css-framework/dist/aether.min.css'
 import '@public/app.css'
 
-// Router.events.on('routeChangeComplete', path => googlePageview(path))
+Router.events.on('routeChangeComplete', console.log)
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
@@ -21,11 +21,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
     return (
         <>
             <PageHead title={title} description={description} path={router.asPath} />
-            {/*
-      <Header
-        title={config.appName}
-      />
- */}
+         
 
             <main>
                 <Component {...pageProps} {...router} />

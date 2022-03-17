@@ -9,7 +9,7 @@ const defaultOptions = {
 
 // Type: info, success, warning, error. Returns a notificationId that you can use for follow-up notifications.
 const showNotification = (message, type = 'info', options?:any) => {
-    if (options.notificationId) {
+    if (options?.notificationId) {
         // Update existing notification
         return toast.update(options.notificationId, {
             ...defaultOptions,
