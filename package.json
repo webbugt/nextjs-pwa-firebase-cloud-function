@@ -1,7 +1,7 @@
 {
   "name": "savez-ssd-bbz",
   "description": "Next.js serverless PWA with Firebase and React Hooks, Firebase hosting",
-  "version": "1.15.2",
+  "version": "1.15.3",
   "author": "Ivan Doncevic <idoncev@gmail.com>",
   "license": "ISC",
   "scripts": {
